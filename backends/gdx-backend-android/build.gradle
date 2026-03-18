@@ -21,6 +21,7 @@ buildscript {
 }
 
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 
 android {
 	namespace "com.badlogic.gdx.backends.android"
@@ -47,6 +48,20 @@ android {
 			withJavadocJar()
 		}
 	}
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId = "com.github.Diman96.libgdx"
+                artifactId = "gdx-backend-android"
+                version = project.version.toString()
+
+                from components.release
+            }
+        }
+    }
 }
 
 dependencies {
